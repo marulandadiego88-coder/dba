@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Documentos Académicos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Generador de Documentos Académicos</h1>
+            <p>Crea documentos académicos estructurados para docentes y directivos</p>
+        </header>
+
+        <main>
+            <section class="form-section">
+                <h2>Configuración del Documento</h2>
+                <form id="documentForm">
+                    <div class="form-group">
+                        <label for="area">Área:</label>
+                        <select id="area" required>
+                            <option value="">Seleccionar área</option>
+                            <option value="matematicas">Matemáticas</option>
+                            <option value="lenguaje">Lenguaje</option>
+                            <option value="ciencias">Ciencias Naturales</option>
+                            <option value="sociales">Ciencias Sociales</option>
+                            <option value="ingles">Humanidades - Inglés</option>
+                            <option value="artistica">Educación Artística</option>
+                            <option value="fisica">Educación Física</option>
+                            <option value="tecnologia">Tecnología e Informática</option>
+                            <option value="etica">Ética y Valores</option>
+                            <option value="religion">Educación Religiosa</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="materia">Materia:</label>
+                        <select id="materia" required disabled>
+                            <option value="">Seleccionar materia</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="grado">Grado:</label>
+                        <select id="grado" required>
+                            <option value="">Seleccionar grado</option>
+                            <option value="1">Primero</option>
+                            <option value="2">Segundo</option>
+                            <option value="3">Tercero</option>
+                            <option value="4">Cuarto</option>
+                            <option value="5">Quinto</option>
+                            <option value="6">Sexto</option>
+                            <option value="7">Séptimo</option>
+                            <option value="8">Octavo</option>
+                            <option value="9">Noveno</option>
+                            <option value="10">Décimo</option>
+                            <option value="11">Once</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Generar Documento</button>
+                </form>
+            </section>
+
+            <section class="document-section" id="documentSection" style="display: none;">
+                <div class="document-header">
+                    <h2 id="documentTitle"></h2>
+                    <div class="actions">
+                        <button id="editBtn" class="btn-secondary">Editar</button>
+                        <button id="exportBtn" class="btn-primary">Exportar a Word</button>
+                    </div>
+                </div>
+
+                <div class="periods-container" id="periodsContainer">
+                    <!-- Los periodos se generarán dinámicamente -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
