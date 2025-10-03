@@ -4,14 +4,14 @@
 const DBA_CIENCIAS_NATURALES = {
     // PRIMARIA
     1: {
-        dba: "DBA 1: Comprende que los sentidos le permiten percibir algunas características de los objetos que nos rodean (temperatura, sabor, sonidos, olor, color, texturas y formas).",
+        dba: "DBA 1: Comprende que los seres vivos tienen características que los distinguen de los objetos no vivos y que se pueden agrupar atendiendo a sus características.",
         estandares: "Identifico características de los seres vivos y objetos inertes, establezco semejanzas y diferencias entre ellos y los clasifico.",
-        competencias: "Indagación: Observar y describir características. Explicación: Relacionar los sentidos con la percepción. Uso del conocimiento: Aplicar en situaciones cotidianas.",
-        temas: ["Los cinco sentidos", "Características de los objetos", "Percepción del entorno", "Cuidado de los sentidos"],
-        objetivos: ["Identificar los cinco sentidos y sus funciones", "Describir características de objetos usando los sentidos", "Reconocer la importancia del cuidado de los sentidos"],
-        metodologia: "Exploración sensorial directa, juegos de percepción, experimentos sencillos con diferentes texturas, sabores y sonidos",
-        actividades: ["Caja de texturas para explorar con el tacto", "Degustación de diferentes sabores", "Identificación de sonidos del entorno"],
-        evaluacion: "Observación directa de la exploración sensorial, registro de descripciones, actividades lúdicas de identificación"
+        competencias: "Indagación: Observar seres vivos. Explicación: Distinguir vivos de no vivos. Uso del conocimiento: Clasificar seres vivos.",
+        temas: ["Características de seres vivos", "Diferencias entre vivos y no vivos", "Clasificación básica", "Necesidades básicas"],
+        objetivos: ["Identificar características de seres vivos", "Diferenciar seres vivos de objetos", "Agrupar seres vivos por características"],
+        metodologia: "Observación directa, comparación de características, clasificación con material concreto",
+        actividades: ["Exploración de seres vivos del entorno", "Clasificación de imágenes", "Cuidado de plantas y animales"],
+        evaluacion: "Observación de clasificaciones, registro de características, explicaciones sobre diferencias"
     },
     
     2: {
@@ -26,36 +26,36 @@ const DBA_CIENCIAS_NATURALES = {
     },
 
     3: {
-        dba: "DBA 3: Comprende que los seres vivos se relacionan con su entorno intercambiando energía y que los cambios en el entorno afectan a los seres vivos.",
-        estandares: "Identifico necesidades de los seres vivos y explico la importancia de un ambiente sano.",
-        competencias: "Indagación: Observar relaciones ser vivo-ambiente. Explicación: Explicar intercambios de energía. Uso del conocimiento: Predecir efectos de cambios ambientales.",
-        temas: ["Relaciones ser vivo-ambiente", "Intercambio de energía", "Adaptaciones al medio", "Cambios ambientales"],
-        objetivos: ["Explicar cómo los seres vivos obtienen energía", "Identificar adaptaciones al medio ambiente", "Reconocer efectos de cambios ambientales"],
-        metodologia: "Observación de ecosistemas locales, experimentos sobre necesidades de plantas, análisis de adaptaciones",
-        actividades: ["Experimento de germinación en diferentes condiciones", "Observación de adaptaciones de animales", "Análisis de cadenas alimentarias simples"],
-        evaluacion: "Informes de experimentos, dibujos explicativos, presentaciones sobre adaptaciones"
+        dba: "DBA 3: Comprende que las plantas tienen partes que les permiten realizar sus funciones básicas (raíz, tallo, hojas, flor y fruto).",
+        estandares: "Identifico estructuras de los seres vivos que les permiten desarrollarse en un entorno y que puedo utilizar como criterios de clasificación.",
+        competencias: "Indagación: Observar partes de las plantas. Explicación: Relacionar estructura con función. Uso del conocimiento: Aplicar al cuidado de plantas.",
+        temas: ["Partes de las plantas", "Funciones de cada parte", "Cuidado de plantas", "Importancia de las plantas"],
+        objetivos: ["Identificar partes de las plantas", "Explicar funciones de cada parte", "Reconocer la importancia de las plantas"],
+        metodologia: "Observación directa de plantas, experimentos con semillas, cuidado de plantas en el aula",
+        actividades: ["Disección de flores", "Germinación de semillas", "Observación de raíces y tallos"],
+        evaluacion: "Dibujos de partes de plantas, experimentos de germinación, cuidado de plantas"
     },
 
     4: {
-        dba: "DBA 4: Comprende que la magnitud y la dirección en que se aplique una fuerza puede producir cambios en la forma como se mueve un objeto.",
-        estandares: "Identifico y describo la utilidad de algunos objetos y técnicas desarrollados por el ser humano y reconozco que somos agentes de cambio en el entorno y en la sociedad.",
-        competencias: "Indagación: Experimentar con fuerzas y movimiento. Explicación: Relacionar fuerza con cambios de movimiento. Uso del conocimiento: Aplicar en situaciones cotidianas.",
-        temas: ["Fuerzas y movimiento", "Dirección y magnitud de fuerzas", "Cambios en el movimiento", "Máquinas simples"],
-        objetivos: ["Identificar diferentes tipos de fuerzas", "Explicar cómo las fuerzas cambian el movimiento", "Reconocer máquinas simples en el entorno"],
-        metodologia: "Experimentación con objetos cotidianos, construcción de máquinas simples, análisis de movimientos",
-        actividades: ["Experimentos con planos inclinados", "Construcción de palancas simples", "Análisis del movimiento de pelotas"],
-        evaluacion: "Registro de experimentos, construcción de dispositivos, explicaciones sobre fuerzas observadas"
+        dba: "DBA 4: Comprende que los seres vivos se desarrollan en un ciclo de vida que inicia con el nacimiento, crecimiento, reproducción, envejecimiento y muerte.",
+        estandares: "Describo características de los seres vivos y objetos inertes, establezco semejanzas y diferencias entre ellos y los clasifico.",
+        competencias: "Indagación: Observar ciclos de vida. Explicación: Describir etapas del desarrollo. Uso del conocimiento: Aplicar al cuidado de seres vivos.",
+        temas: ["Ciclos de vida", "Etapas del desarrollo", "Crecimiento y reproducción", "Cuidado de seres vivos"],
+        objetivos: ["Identificar etapas del ciclo de vida", "Comparar ciclos de vida de diferentes seres vivos", "Reconocer la importancia del cuidado en cada etapa"],
+        metodologia: "Observación de seres vivos, seguimiento de ciclos, comparación de etapas de desarrollo",
+        actividades: ["Observación del ciclo de vida de mariposas", "Seguimiento del crecimiento de plantas", "Comparación de ciclos de vida animal"],
+        evaluacion: "Registro de observaciones, diagramas de ciclos de vida, comparaciones entre especies"
     },
 
     5: {
-        dba: "DBA 5: Comprende que los sistemas del cuerpo humano están formados por órganos, tejidos y células y que la estructura de cada tipo de célula está relacionada con la función del tejido que forman.",
-        estandares: "Explico la importancia de la célula como unidad básica de los seres vivos.",
-        competencias: "Indagación: Observar estructuras microscópicas. Explicación: Relacionar estructura con función. Uso del conocimiento: Aplicar a cuidado del cuerpo.",
-        temas: ["La célula como unidad básica", "Tejidos y órganos", "Sistemas del cuerpo humano", "Relación estructura-función"],
-        objetivos: ["Identificar la célula como unidad básica de la vida", "Explicar la organización del cuerpo humano", "Relacionar estructura celular con función"],
-        metodologia: "Observación microscópica, modelos anatómicos, experimentos sobre funciones corporales",
-        actividades: ["Observación de células al microscopio", "Construcción de modelos de sistemas corporales", "Experimentos sobre digestión"],
-        evaluacion: "Dibujos de observaciones microscópicas, modelos construidos, explicaciones sobre sistemas corporales"
+        dba: "DBA 5: Comprende que el cuerpo humano está formado por sistemas que cumplen funciones vitales (digestivo, respiratorio, circulatorio, nervioso, óseo-muscular).",
+        estandares: "Represento los diversos sistemas de órganos del ser humano y explico su función.",
+        competencias: "Indagación: Explorar funciones corporales. Explicación: Describir sistemas del cuerpo. Uso del conocimiento: Aplicar al cuidado de la salud.",
+        temas: ["Sistemas del cuerpo humano", "Funciones vitales", "Cuidado del cuerpo", "Hábitos saludables"],
+        objetivos: ["Identificar sistemas del cuerpo humano", "Explicar funciones de cada sistema", "Promover hábitos saludables"],
+        metodologia: "Modelos anatómicos, experimentos sobre funciones corporales, análisis de hábitos saludables",
+        actividades: ["Construcción de modelos de sistemas", "Experimentos sobre digestión y respiración", "Análisis de hábitos alimenticios"],
+        evaluacion: "Modelos construidos, experimentos realizados, propuestas de hábitos saludables"
     },
 
     // SECUNDARIA
@@ -93,14 +93,14 @@ const DBA_CIENCIAS_NATURALES = {
     },
 
     9: {
-        dba: "DBA 4: Comprende que el comportamiento de un gas ideal está determinado por las relaciones entre temperatura, presión, cantidad de gas y volumen.",
-        estandares: "Relaciono energía y movimiento.",
-        competencias: "Indagación: Experimentar con variables de gases. Explicación: Aplicar leyes de gases. Uso del conocimiento: Resolver problemas cotidianos.",
-        temas: ["Leyes de los gases", "Teoría cinética", "Comportamiento de gases", "Aplicaciones tecnológicas"],
-        objetivos: ["Aplicar leyes de gases en experimentos", "Explicar comportamiento molecular de gases", "Resolver problemas usando leyes de gases"],
-        metodologia: "Experimentación con gases, análisis gráfico, resolución de problemas",
-        actividades: ["Experimentos con ley de Boyle", "Análisis de comportamiento de gases", "Aplicaciones en tecnología"],
-        evaluacion: "Informes de laboratorio, resolución de problemas, análisis de gráficas"
+        dba: "DBA 4: Comprende que la reproducción (sexual y asexual) es un proceso mediante el cual los seres vivos perpetúan su especie y que existen mecanismos de herencia que permiten la transmisión de características de padres a hijos.",
+        estandares: "Establezco relaciones entre los genes, las proteínas y las funciones celulares.",
+        competencias: "Indagación: Investigar tipos de reproducción. Explicación: Explicar mecanismos hereditarios. Uso del conocimiento: Aplicar a mejoramiento de especies.",
+        temas: ["Reproducción sexual y asexual", "Gametogénesis", "Fecundación", "Herencia mendeliana", "Variabilidad genética"],
+        objetivos: ["Comparar tipos de reproducción en seres vivos", "Explicar procesos de gametogénesis", "Analizar patrones de herencia"],
+        metodologia: "Observación microscópica de gametos, análisis de cruces genéticos, comparación de estrategias reproductivas",
+        actividades: ["Observación de células reproductivas", "Análisis de problemas de genética", "Comparación de ciclos reproductivos"],
+        evaluacion: "Informes de laboratorio, resolución de problemas genéticos, análisis comparativos"
     },
 
     10: {

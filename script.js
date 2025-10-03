@@ -77,8 +77,29 @@ class DocumentGenerator {
                 }
             } else if (e.target.dataset.action === 'close-modal') {
                 this.closeModal();
+                this.hideProgressModal();
             } else if (e.target.dataset.action === 'copy-modal') {
                 this.copyToClipboard();
+            }
+        });
+
+        // Scroll to top functionality
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+        if (scrollToTopBtn) {
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        // Show/hide scroll to top button
+        window.addEventListener('scroll', () => {
+            const scrollToTopBtn = document.getElementById('scrollToTop');
+            if (scrollToTopBtn) {
+                if (window.pageYOffset > 300) {
+                    scrollToTopBtn.classList.add('show');
+                } else {
+                    scrollToTopBtn.classList.remove('show');
+                }
             }
         });
     }
@@ -374,6 +395,17 @@ class DocumentGenerator {
     }
 
     async generateContentForAllPeriods(materia, grado) {
+        // Para Biología, usar siempre los DBA oficiales almacenados
+        if (materia === 'biologia' && DBA_CIENCIAS_NATURALES[grado]) {
+            console.log(`Usando DBA oficial de Biología para grado ${grado}`);
+            for (let periodo = 1; periodo <= 4; periodo++) {
+                this.updateTimelineStep('step3', 'Buscando DBA Oficiales', `Procesando período ${periodo} de 4...`);
+                this.generatedContent[periodo] = DBA_CIENCIAS_NATURALES[grado];
+            }
+            return;
+        }
+        
+        // Para otras materias, intentar generar con IA
         for (let periodo = 1; periodo <= 4; periodo++) {
             try {
                 this.updateTimelineStep('step3', 'Buscando DBA Oficiales', `Procesando período ${periodo} de 4...`);
@@ -514,30 +546,64 @@ class DocumentGenerator {
     }
 
     async desarrollarActividades(periodo) {
+        // Mostrar barra de progreso
+        this.showProgressModal('Generando Actividades', 'Conectando con IA para desarrollar actividades detalladas...');
+        
         try {
+            this.updateProgress(25, 'Analizando contenido del período...');
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
             const { materia, grado } = this.currentDocument;
+            
+            this.updateProgress(50, 'Generando actividades personalizadas...');
             const actividadesDetalladas = await this.geminiService.generateDetailedActivities(materia, grado, periodo);
             
-            // Mostrar modal con actividades desarrolladas
+            this.updateProgress(75, 'Estructurando contenido...');
+            await new Promise(resolve => setTimeout(resolve, 300));
+            
+            this.updateProgress(100, '¡Actividades generadas exitosamente!');
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            this.hideProgressModal();
             this.showModal('Actividades Desarrolladas - Período ' + periodo, actividadesDetalladas);
         } catch (error) {
             console.error('Error desarrollando actividades:', error);
-            // Mostrar actividades por defecto
+            this.updateProgress(100, 'Error en conexión, usando actividades predeterminadas...');
+            await new Promise(resolve => setTimeout(resolve, 800));
+            
+            this.hideProgressModal();
             const actividadesDefault = this.getDefaultActivities(periodo);
             this.showModal('Actividades Desarrolladas - Período ' + periodo, actividadesDefault);
         }
     }
 
     async desarrollarEvaluaciones(periodo) {
+        // Mostrar barra de progreso
+        this.showProgressModal('Generando Evaluaciones', 'Conectando con IA para desarrollar evaluaciones detalladas...');
+        
         try {
+            this.updateProgress(25, 'Analizando objetivos del período...');
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
             const { materia, grado } = this.currentDocument;
+            
+            this.updateProgress(50, 'Creando instrumentos de evaluación...');
             const evaluacionesDetalladas = await this.geminiService.generateDetailedEvaluations(materia, grado, periodo);
             
-            // Mostrar modal con evaluaciones desarrolladas
+            this.updateProgress(75, 'Definiendo criterios y rúbricas...');
+            await new Promise(resolve => setTimeout(resolve, 300));
+            
+            this.updateProgress(100, '¡Evaluaciones generadas exitosamente!');
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            this.hideProgressModal();
             this.showModal('Evaluaciones Desarrolladas - Período ' + periodo, evaluacionesDetalladas);
         } catch (error) {
             console.error('Error desarrollando evaluaciones:', error);
-            // Mostrar evaluaciones por defecto
+            this.updateProgress(100, 'Error en conexión, usando evaluaciones predeterminadas...');
+            await new Promise(resolve => setTimeout(resolve, 800));
+            
+            this.hideProgressModal();
             const evaluacionesDefault = this.getDefaultEvaluations(periodo);
             this.showModal('Evaluaciones Desarrolladas - Período ' + periodo, evaluacionesDefault);
         }
@@ -575,33 +641,84 @@ class DocumentGenerator {
 
     getDefaultEvaluations(periodo) {
         return `
-            <h3>📊 Evaluaciones del Período ${periodo}</h3>
+            <h3>📊 Porcentajes de Evaluación (Decreto 1290)</h3>
+            <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                <tr style="background-color: #3498db; color: white;">
+                    <th style="border: 1px solid #ddd; padding: 12px; text-align: left;">Tipo de Evaluación</th>
+                    <th style="border: 1px solid #ddd; padding: 12px; text-align: center;">Porcentaje</th>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 10px;">Diagnóstica</td>
+                    <td style="border: 1px solid #ddd; padding: 10px; text-align: center;">10%</td>
+                </tr>
+                <tr style="background-color: #f9f9f9;">
+                    <td style="border: 1px solid #ddd; padding: 10px;">Formativa</td>
+                    <td style="border: 1px solid #ddd; padding: 10px; text-align: center;">40%</td>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 10px;">Sumativa</td>
+                    <td style="border: 1px solid #ddd; padding: 10px; text-align: center;">50%</td>
+                </tr>
+            </table>
+            <p><em>Este sistema de evaluación está sujeto a ajustes de acuerdo con las políticas de la institución educativa y los lineamientos del Ministerio de Educación Nacional.</em></p>
+            
+            <h3>📝 Propuesta de Evaluación Escrita - Período ${periodo}</h3>
             <div class="evaluation-item">
-                <h4>🔍 Evaluación Diagnóstica</h4>
-                <p><strong>Tipo:</strong> Formativa</p>
-                <p><strong>📅 Momento:</strong> Inicio del período</p>
-                <p><strong>📝 Instrumento:</strong> Prueba escrita y observación</p>
-                <p><strong>✅ Criterios:</strong> Conocimientos previos, habilidades básicas</p>
-                <p><strong>📈 Valor:</strong> 0% (solo diagnóstico)</p>
-                <p><strong>🎯 Propósito:</strong> Identificar nivel inicial de estudiantes</p>
-            </div>
-            <div class="evaluation-item">
-                <h4>📈 Evaluación Formativa</h4>
-                <p><strong>Tipo:</strong> Continua</p>
-                <p><strong>📅 Momento:</strong> Durante todo el período</p>
-                <p><strong>📝 Instrumento:</strong> Observación, tareas, participación</p>
-                <p><strong>✅ Criterios:</strong> Proceso de aprendizaje, participación activa</p>
-                <p><strong>📈 Valor:</strong> 40%</p>
-                <p><strong>🎯 Propósito:</strong> Retroalimentación continua del proceso</p>
-            </div>
-            <div class="evaluation-item">
-                <h4>🏆 Evaluación Sumativa</h4>
-                <p><strong>Tipo:</strong> Sumativa</p>
-                <p><strong>📅 Momento:</strong> Final del período</p>
-                <p><strong>📝 Instrumento:</strong> Prueba escrita y proyecto</p>
-                <p><strong>✅ Criterios:</strong> Logro de objetivos, aplicación de conocimientos</p>
-                <p><strong>📈 Valor:</strong> 60%</p>
-                <p><strong>🎯 Propósito:</strong> Verificar logro de competencias</p>
+                <h4>📊 Prueba de Opción Múltiple</h4>
+                <p><strong>Instrucciones:</strong> Selecciona la respuesta correcta (A, B, C o D) para cada pregunta.</p>
+                
+                <div style="margin: 15px 0; padding: 15px; background: #f8f9fa; border-left: 4px solid #007bff; border-radius: 5px;">
+                    <p><strong>1. ¿Cuál es la unidad básica estructural y funcional de todos los seres vivos?</strong></p>
+                    <p>A) El tejido</p>
+                    <p>B) La célula</p>
+                    <p>C) El órgano</p>
+                    <p>D) El sistema</p>
+                    <p><em>✅ Respuesta correcta: B</em></p>
+                </div>
+                
+                <div style="margin: 15px 0; padding: 15px; background: #f8f9fa; border-left: 4px solid #28a745; border-radius: 5px;">
+                    <p><strong>2. En una red trófica, los organismos productores son:</strong></p>
+                    <p>A) Los carnívoros</p>
+                    <p>B) Las plantas y algas</p>
+                    <p>C) Los descomponedores</p>
+                    <p>D) Los consumidores secundarios</p>
+                    <p><em>✅ Respuesta correcta: B</em></p>
+                </div>
+                
+                <div style="margin: 15px 0; padding: 15px; background: #f8f9fa; border-left: 4px solid #ffc107; border-radius: 5px;">
+                    <p><strong>3. El intercambio de gases en los seres humanos ocurre principalmente en:</strong></p>
+                    <p>A) El corazón</p>
+                    <p>B) Los riñones</p>
+                    <p>C) Los alvéolos pulmonares</p>
+                    <p>D) El hígado</p>
+                    <p><em>✅ Respuesta correcta: C</em></p>
+                </div>
+                
+                <div style="margin: 15px 0; padding: 15px; background: #f8f9fa; border-left: 4px solid #dc3545; border-radius: 5px;">
+                    <p><strong>4. La reproducción sexual se caracteriza por:</strong></p>
+                    <p>A) Tener un solo progenitor</p>
+                    <p>B) Producir descendencia genéticamente idéntica</p>
+                    <p>C) Involucrar dos progenitores y generar variabilidad genética</p>
+                    <p>D) No requerir gametos</p>
+                    <p><em>✅ Respuesta correcta: C</em></p>
+                </div>
+                
+                <div style="margin: 15px 0; padding: 15px; background: #f8f9fa; border-left: 4px solid #6f42c1; border-radius: 5px;">
+                    <p><strong>5. La evolución de las especies es el resultado de:</strong></p>
+                    <p>A) Cambios voluntarios de los organismos</p>
+                    <p>B) Interacciones entre factores genéticos y ambientales</p>
+                    <p>C) Solo mutaciones genéticas</p>
+                    <p>D) Solo cambios ambientales</p>
+                    <p><em>✅ Respuesta correcta: B</em></p>
+                </div>
+                
+                <h4>📈 Criterios de Evaluación</h4>
+                <ul>
+                    <li><strong>Valor por pregunta:</strong> 20 puntos (Total: 100 puntos)</li>
+                    <li><strong>Competencias evaluadas:</strong> Indagación, Explicación de fenómenos, Uso del conocimiento</li>
+                    <li><strong>Tiempo estimado:</strong> 45 minutos</li>
+                    <li><strong>Tipo de evaluación:</strong> Sumativa (50% de la nota final)</li>
+                </ul>
             </div>
         `;
     }
@@ -650,6 +767,7 @@ class DocumentGenerator {
         if (modal) {
             modal.style.display = 'none';
         }
+        this.hideProgressModal();
     }
 
     copyToClipboard() {
@@ -659,6 +777,104 @@ class DocumentGenerator {
         }).catch(err => {
             console.error('Error al copiar:', err);
         });
+    }
+
+    showProgressModal(title, message) {
+        // Crear modal de progreso si no existe
+        let progressModal = document.getElementById('progressModal');
+        if (!progressModal) {
+            progressModal = document.createElement('div');
+            progressModal.id = 'progressModal';
+            progressModal.className = 'modal progress-modal';
+            progressModal.innerHTML = `
+                <div class="modal-content progress-content">
+                    <div class="progress-header">
+                        <h3 id="progressTitle"></h3>
+                    </div>
+                    <div class="progress-body">
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" id="progressBar">
+                                <div class="progress-fill" id="progressFill"></div>
+                                <span class="progress-text" id="progressText">0%</span>
+                            </div>
+                        </div>
+                        <p class="progress-message" id="progressMessage"></p>
+                    </div>
+                </div>
+                <style>
+                    .progress-modal .modal-content {
+                        max-width: 400px;
+                        text-align: center;
+                    }
+                    .progress-header h3 {
+                        color: #2c3e50;
+                        margin: 0 0 20px 0;
+                    }
+                    .progress-bar-container {
+                        margin: 20px 0;
+                    }
+                    .progress-bar {
+                        width: 100%;
+                        height: 30px;
+                        background-color: #ecf0f1;
+                        border-radius: 15px;
+                        position: relative;
+                        overflow: hidden;
+                        border: 2px solid #bdc3c7;
+                    }
+                    .progress-fill {
+                        height: 100%;
+                        background: linear-gradient(90deg, #3498db, #2980b9);
+                        border-radius: 13px;
+                        width: 0%;
+                        transition: width 0.3s ease;
+                        position: relative;
+                    }
+                    .progress-text {
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        color: #2c3e50;
+                        font-weight: bold;
+                        font-size: 14px;
+                        z-index: 10;
+                    }
+                    .progress-message {
+                        color: #7f8c8d;
+                        font-size: 14px;
+                        margin: 15px 0 0 0;
+                        min-height: 20px;
+                    }
+                </style>
+            `;
+            document.body.appendChild(progressModal);
+        }
+        
+        document.getElementById('progressTitle').textContent = title;
+        document.getElementById('progressMessage').textContent = message;
+        document.getElementById('progressFill').style.width = '0%';
+        document.getElementById('progressText').textContent = '0%';
+        progressModal.style.display = 'block';
+    }
+
+    updateProgress(percentage, message) {
+        const progressFill = document.getElementById('progressFill');
+        const progressText = document.getElementById('progressText');
+        const progressMessage = document.getElementById('progressMessage');
+        
+        if (progressFill && progressText && progressMessage) {
+            progressFill.style.width = percentage + '%';
+            progressText.textContent = percentage + '%';
+            progressMessage.textContent = message;
+        }
+    }
+
+    hideProgressModal() {
+        const progressModal = document.getElementById('progressModal');
+        if (progressModal) {
+            progressModal.style.display = 'none';
+        }
     }
 
     exportToWord() {
