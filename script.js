@@ -74,6 +74,8 @@ class DocumentGenerator {
                     this.desarrollarActividades(parseInt(periodo));
                 } else if (action === 'evaluaciones') {
                     this.desarrollarEvaluaciones(parseInt(periodo));
+                } else if (action === 'icfes') {
+                    this.generarEvaluacionICFES(parseInt(periodo));
                 }
             } else if (e.target.dataset.action === 'close-modal') {
                 this.closeModal();
@@ -385,6 +387,7 @@ class DocumentGenerator {
                         <td class="${this.isEditing ? 'editable' : ''}">
                             ${formatData(data.evaluacion) || 'Evaluación continua y formativa'}
                             <br><button class="btn-develop" data-periodo="${periodo}" data-action="evaluaciones">Desarrollar Evaluaciones</button>
+                            <br><button class="btn-develop" data-periodo="${periodo}" data-action="icfes" style="background-color: #27ae60; margin-top: 5px;">Aplicación de Evaluación</button>
                         </td>
                     </tr>
                 </table>
@@ -641,84 +644,81 @@ class DocumentGenerator {
 
     getDefaultEvaluations(periodo) {
         return `
-            <h3>📊 Porcentajes de Evaluación (Decreto 1290)</h3>
-            <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
-                <tr style="background-color: #3498db; color: white;">
-                    <th style="border: 1px solid #ddd; padding: 12px; text-align: left;">Tipo de Evaluación</th>
-                    <th style="border: 1px solid #ddd; padding: 12px; text-align: center;">Porcentaje</th>
-                </tr>
-                <tr>
-                    <td style="border: 1px solid #ddd; padding: 10px;">Diagnóstica</td>
-                    <td style="border: 1px solid #ddd; padding: 10px; text-align: center;">10%</td>
-                </tr>
-                <tr style="background-color: #f9f9f9;">
-                    <td style="border: 1px solid #ddd; padding: 10px;">Formativa</td>
-                    <td style="border: 1px solid #ddd; padding: 10px; text-align: center;">40%</td>
-                </tr>
-                <tr>
-                    <td style="border: 1px solid #ddd; padding: 10px;">Sumativa</td>
-                    <td style="border: 1px solid #ddd; padding: 10px; text-align: center;">50%</td>
-                </tr>
-            </table>
-            <p><em>Este sistema de evaluación está sujeto a ajustes de acuerdo con las políticas de la institución educativa y los lineamientos del Ministerio de Educación Nacional.</em></p>
-            
-            <h3>📝 Propuesta de Evaluación Escrita - Período ${periodo}</h3>
+            <h3>📊 Evaluaciones del Período ${periodo}</h3>
             <div class="evaluation-item">
-                <h4>📊 Prueba de Opción Múltiple</h4>
-                <p><strong>Instrucciones:</strong> Selecciona la respuesta correcta (A, B, C o D) para cada pregunta.</p>
+                <h4>🔍 Evaluación Diagnóstica</h4>
+                <p><strong>Tipo:</strong> Formativa</p>
+                <p><strong>📅 Momento:</strong> Inicio del período</p>
+                <p><strong>📝 Instrumento:</strong> Prueba escrita y observación</p>
+                <p><strong>✅ Criterios:</strong> Conocimientos previos, habilidades básicas</p>
+                <p><strong>📈 Valor:</strong> 0% (solo diagnóstico)</p>
+                <p><strong>🎯 Propósito:</strong> Identificar nivel inicial de estudiantes</p>
+            </div>
+            <div class="evaluation-item">
+                <h4>📈 Evaluación Formativa</h4>
+                <p><strong>Tipo:</strong> Continua</p>
+                <p><strong>📅 Momento:</strong> Durante todo el período</p>
+                <p><strong>📝 Instrumento:</strong> Observación, tareas, participación</p>
+                <p><strong>✅ Criterios:</strong> Proceso de aprendizaje, participación activa</p>
+                <p><strong>📈 Valor:</strong> 40%</p>
+                <p><strong>🎯 Propósito:</strong> Retroalimentación continua del proceso</p>
+            </div>
+            <div class="evaluation-item">
+                <h4>🏆 Evaluación Sumativa</h4>
+                <p><strong>Tipo:</strong> Sumativa</p>
+                <p><strong>📅 Momento:</strong> Final del período</p>
+                <p><strong>📝 Instrumento:</strong> Prueba escrita y proyecto</p>
+                <p><strong>✅ Criterios:</strong> Logro de objetivos, aplicación de conocimientos</p>
+                <p><strong>📈 Valor:</strong> 60%</p>
+                <p><strong>🎯 Propósito:</strong> Verificar logro de competencias</p>
+            </div>
+            
+            <h3>📝 Consideraciones Finales</h3>
+            <div class="evaluation-item">
+                <h4>📊 Evaluación de Selección Múltiple - Período ${periodo}</h4>
+                <p><strong>Instrucciones:</strong> Selecciona la respuesta correcta para cada pregunta.</p>
                 
                 <div style="margin: 15px 0; padding: 15px; background: #f8f9fa; border-left: 4px solid #007bff; border-radius: 5px;">
-                    <p><strong>1. ¿Cuál es la unidad básica estructural y funcional de todos los seres vivos?</strong></p>
-                    <p>A) El tejido</p>
-                    <p>B) La célula</p>
-                    <p>C) El órgano</p>
-                    <p>D) El sistema</p>
-                    <p><em>✅ Respuesta correcta: B</em></p>
+                    <p><strong>1. ¿Cuál es el concepto fundamental del tema estudiado?</strong></p>
+                    <p>A) Concepto básico principal</p>
+                    <p>B) Aplicación práctica directa</p>
+                    <p>C) Relación con otros temas</p>
+                    <p>D) Todas las anteriores</p>
                 </div>
                 
                 <div style="margin: 15px 0; padding: 15px; background: #f8f9fa; border-left: 4px solid #28a745; border-radius: 5px;">
-                    <p><strong>2. En una red trófica, los organismos productores son:</strong></p>
-                    <p>A) Los carnívoros</p>
-                    <p>B) Las plantas y algas</p>
-                    <p>C) Los descomponedores</p>
-                    <p>D) Los consumidores secundarios</p>
-                    <p><em>✅ Respuesta correcta: B</em></p>
+                    <p><strong>2. ¿Qué competencia se desarrolla principalmente en este período?</strong></p>
+                    <p>A) Indagación científica</p>
+                    <p>B) Explicación de fenómenos</p>
+                    <p>C) Uso del conocimiento científico</p>
+                    <p>D) Todas las competencias científicas</p>
                 </div>
                 
                 <div style="margin: 15px 0; padding: 15px; background: #f8f9fa; border-left: 4px solid #ffc107; border-radius: 5px;">
-                    <p><strong>3. El intercambio de gases en los seres humanos ocurre principalmente en:</strong></p>
-                    <p>A) El corazón</p>
-                    <p>B) Los riñones</p>
-                    <p>C) Los alvéolos pulmonares</p>
-                    <p>D) El hígado</p>
-                    <p><em>✅ Respuesta correcta: C</em></p>
+                    <p><strong>3. ¿Cuál es la metodología más apropiada para este tema?</strong></p>
+                    <p>A) Clases magistrales exclusivamente</p>
+                    <p>B) Experimentación práctica</p>
+                    <p>C) Trabajo colaborativo</p>
+                    <p>D) Metodología mixta e integral</p>
                 </div>
                 
                 <div style="margin: 15px 0; padding: 15px; background: #f8f9fa; border-left: 4px solid #dc3545; border-radius: 5px;">
-                    <p><strong>4. La reproducción sexual se caracteriza por:</strong></p>
-                    <p>A) Tener un solo progenitor</p>
-                    <p>B) Producir descendencia genéticamente idéntica</p>
-                    <p>C) Involucrar dos progenitores y generar variabilidad genética</p>
-                    <p>D) No requerir gametos</p>
-                    <p><em>✅ Respuesta correcta: C</em></p>
+                    <p><strong>4. ¿Qué tipo de evaluación es más efectiva para este tema?</strong></p>
+                    <p>A) Solo evaluación sumativa</p>
+                    <p>B) Solo evaluación formativa</p>
+                    <p>C) Evaluación continua y variada</p>
+                    <p>D) Evaluación tradicional únicamente</p>
                 </div>
                 
                 <div style="margin: 15px 0; padding: 15px; background: #f8f9fa; border-left: 4px solid #6f42c1; border-radius: 5px;">
-                    <p><strong>5. La evolución de las especies es el resultado de:</strong></p>
-                    <p>A) Cambios voluntarios de los organismos</p>
-                    <p>B) Interacciones entre factores genéticos y ambientales</p>
-                    <p>C) Solo mutaciones genéticas</p>
-                    <p>D) Solo cambios ambientales</p>
-                    <p><em>✅ Respuesta correcta: B</em></p>
+                    <p><strong>5. ¿Cómo se relaciona este tema con la vida cotidiana?</strong></p>
+                    <p>A) No tiene relación práctica</p>
+                    <p>B) Tiene aplicaciones limitadas</p>
+                    <p>C) Se aplica en situaciones específicas</p>
+                    <p>D) Tiene múltiples aplicaciones cotidianas</p>
                 </div>
                 
-                <h4>📈 Criterios de Evaluación</h4>
-                <ul>
-                    <li><strong>Valor por pregunta:</strong> 20 puntos (Total: 100 puntos)</li>
-                    <li><strong>Competencias evaluadas:</strong> Indagación, Explicación de fenómenos, Uso del conocimiento</li>
-                    <li><strong>Tiempo estimado:</strong> 45 minutos</li>
-                    <li><strong>Tipo de evaluación:</strong> Sumativa (50% de la nota final)</li>
-                </ul>
+                <p><strong>Valor:</strong> 20 puntos por pregunta (Total: 100 puntos)</p>
             </div>
         `;
     }
@@ -875,6 +875,110 @@ class DocumentGenerator {
         if (progressModal) {
             progressModal.style.display = 'none';
         }
+    }
+
+    async generarEvaluacionICFES(periodo) {
+        this.showProgressModal('Generando Evaluación ICFES', 'Creando evaluación estilo ICFES...');
+        
+        try {
+            this.updateProgress(25, 'Analizando contenido del período...');
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            this.updateProgress(50, 'Generando preguntas estilo ICFES...');
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            this.updateProgress(75, 'Estructurando evaluación...');
+            await new Promise(resolve => setTimeout(resolve, 300));
+            
+            this.updateProgress(100, '¡Evaluación ICFES generada!');
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            this.hideProgressModal();
+            const evaluacionICFES = this.getEvaluacionICFES(periodo);
+            this.showModal('Evaluación Estilo ICFES - Período ' + periodo, evaluacionICFES);
+        } catch (error) {
+            console.error('Error generando evaluación ICFES:', error);
+            this.hideProgressModal();
+            const evaluacionICFES = this.getEvaluacionICFES(periodo);
+            this.showModal('Evaluación Estilo ICFES - Período ' + periodo, evaluacionICFES);
+        }
+    }
+
+    getEvaluacionICFES(periodo) {
+        return `
+            <h3>🎯 Evaluación Estilo ICFES - Período ${periodo}</h3>
+            <p><strong>Instrucciones:</strong> Responde las siguientes preguntas seleccionando la opción correcta. Rellena completamente el círculo correspondiente en la hoja de respuestas.</p>
+            <p><strong>Tiempo:</strong> 60 minutos | <strong>Preguntas:</strong> 5 | <strong>Valor:</strong> 100 puntos</p>
+            
+            <div style="margin: 20px 0; padding: 20px; background: #f8f9fa; border: 2px solid #007bff; border-radius: 10px;">
+                <h4 style="color: #007bff; margin-bottom: 15px;">📝 PREGUNTA 1</h4>
+                <p style="font-weight: bold; margin-bottom: 10px;">Según el contenido estudiado en este período, ¿cuál de las siguientes afirmaciones es CORRECTA?</p>
+                <div style="margin: 10px 0;">
+                    <p>A) Los conceptos básicos no tienen aplicación práctica en la vida cotidiana.</p>
+                    <p>B) La metodología de enseñanza no influye en el aprendizaje de los estudiantes.</p>
+                    <p>C) Los procesos estudiados se relacionan directamente con fenómenos observables.</p>
+                    <p>D) Las competencias científicas son independientes del contenido temático.</p>
+                </div>
+                <p style="font-size: 12px; color: #666; margin-top: 10px;"><em>Competencia evaluada: Explicación de fenómenos</em></p>
+            </div>
+            
+            <div style="margin: 20px 0; padding: 20px; background: #f8f9fa; border: 2px solid #28a745; border-radius: 10px;">
+                <h4 style="color: #28a745; margin-bottom: 15px;">📝 PREGUNTA 2</h4>
+                <p style="font-weight: bold; margin-bottom: 10px;">Un estudiante realiza una investigación sobre el tema del período. ¿Cuál sería el primer paso más apropiado en su proceso de indagación?</p>
+                <div style="margin: 10px 0;">
+                    <p>A) Formular conclusiones basadas en conocimientos previos.</p>
+                    <p>B) Plantear preguntas específicas sobre el fenómeno a estudiar.</p>
+                    <p>C) Recopilar datos sin un objetivo claro definido.</p>
+                    <p>D) Comparar resultados con otras investigaciones similares.</p>
+                </div>
+                <p style="font-size: 12px; color: #666; margin-top: 10px;"><em>Competencia evaluada: Indagación</em></p>
+            </div>
+            
+            <div style="margin: 20px 0; padding: 20px; background: #f8f9fa; border: 2px solid #ffc107; border-radius: 10px;">
+                <h4 style="color: #f39c12; margin-bottom: 15px;">📝 PREGUNTA 3</h4>
+                <p style="font-weight: bold; margin-bottom: 10px;">En el contexto del tema estudiado, ¿cuál de las siguientes situaciones representa una aplicación práctica del conocimiento adquirido?</p>
+                <div style="margin: 10px 0;">
+                    <p>A) Memorizar definiciones sin comprender su significado.</p>
+                    <p>B) Resolver problemas reales utilizando los conceptos aprendidos.</p>
+                    <p>C) Repetir procedimientos sin analizar los resultados obtenidos.</p>
+                    <p>D) Estudiar el tema de manera aislada sin conexiones interdisciplinarias.</p>
+                </div>
+                <p style="font-size: 12px; color: #666; margin-top: 10px;"><em>Competencia evaluada: Uso comprensivo del conocimiento científico</em></p>
+            </div>
+            
+            <div style="margin: 20px 0; padding: 20px; background: #f8f9fa; border: 2px solid #dc3545; border-radius: 10px;">
+                <h4 style="color: #dc3545; margin-bottom: 15px;">📝 PREGUNTA 4</h4>
+                <p style="font-weight: bold; margin-bottom: 10px;">Analiza la siguiente situación: Un fenómeno relacionado con el tema del período se presenta de manera inesperada. ¿Cuál sería la mejor estrategia para explicarlo?</p>
+                <div style="margin: 10px 0;">
+                    <p>A) Ignorar el fenómeno por no estar en el plan de estudios.</p>
+                    <p>B) Buscar explicaciones simples sin fundamento científico.</p>
+                    <p>C) Aplicar los conceptos estudiados para construir una explicación coherente.</p>
+                    <p>D) Esperar que alguien más proporcione la explicación correcta.</p>
+                </div>
+                <p style="font-size: 12px; color: #666; margin-top: 10px;"><em>Competencia evaluada: Explicación de fenómenos</em></p>
+            </div>
+            
+            <div style="margin: 20px 0; padding: 20px; background: #f8f9fa; border: 2px solid #6f42c1; border-radius: 10px;">
+                <h4 style="color: #6f42c1; margin-bottom: 15px;">📝 PREGUNTA 5</h4>
+                <p style="font-weight: bold; margin-bottom: 10px;">Considerando la metodología utilizada en este período, ¿cuál de las siguientes afirmaciones describe mejor el enfoque pedagógico empleado?</p>
+                <div style="margin: 10px 0;">
+                    <p>A) Se enfoca exclusivamente en la transmisión de información teórica.</p>
+                    <p>B) Promueve la participación activa y el desarrollo de competencias científicas.</p>
+                    <p>C) Prioriza la memorización sobre la comprensión de conceptos.</p>
+                    <p>D) Limita las oportunidades de experimentación y análisis crítico.</p>
+                </div>
+                <p style="font-size: 12px; color: #666; margin-top: 10px;"><em>Competencia evaluada: Uso comprensivo del conocimiento científico</em></p>
+            </div>
+            
+            <h4 style="margin-top: 30px; color: #2c3e50;">📈 Criterios de Evaluación</h4>
+            <ul style="margin: 15px 0; padding-left: 20px;">
+                <li><strong>Cada pregunta vale 20 puntos</strong> (Total: 100 puntos)</li>
+                <li><strong>Respuestas correctas sugeridas:</strong> 1-C, 2-B, 3-B, 4-C, 5-B</li>
+                <li><strong>Competencias evaluadas:</strong> Indagación, Explicación de fenómenos, Uso del conocimiento</li>
+                <li><strong>Formato:</strong> Selección múltiple con única respuesta</li>
+                <li><strong>Tipo de evaluación:</strong> Sumativa</li>
+            </ul>
+        `;
     }
 
     exportToWord() {
